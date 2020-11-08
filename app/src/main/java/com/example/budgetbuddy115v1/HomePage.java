@@ -10,7 +10,7 @@ import android.widget.Button;
 public class HomePage extends AppCompatActivity {
 
         private Button Logout;
-
+        // trying commit 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
