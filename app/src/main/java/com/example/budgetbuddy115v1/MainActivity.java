@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,26 +24,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private Button Login;
-
-
 // vic push
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        Login = findViewById(R.id.Login_Button);
-
-        Login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Toast.makeText(MainActivity.this, "Successful Login!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, HomePage.class);
-                startActivity(intent);
-            }
-        });
+    public void logout(View view){
+        FirebaseAuth.getInstance().signOut(); //logout
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 }
