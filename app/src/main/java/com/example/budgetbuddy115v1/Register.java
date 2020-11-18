@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
     TextView mLoginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
 
     String userID;
 
@@ -51,7 +51,7 @@ public class Register extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.createText);
 
         fAuth = FirebaseAuth.getInstance();
-        //progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
 
         fStore = FirebaseFirestore.getInstance();
 

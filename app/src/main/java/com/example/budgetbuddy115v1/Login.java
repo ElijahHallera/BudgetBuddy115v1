@@ -23,7 +23,7 @@ public class Login extends AppCompatActivity {
     Button mLoginBtn;
     TextView mCreateBtn;
     FirebaseAuth fAuth;
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
