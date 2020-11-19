@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +27,24 @@ public class MainActivity extends AppCompatActivity {
 
 // vic push
 
+
+    Button mUserProfileBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        mUserProfileBtn = findViewById(R.id.profileButton);
+
+        mUserProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ViewProfile.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -38,4 +53,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
+
+
 }
