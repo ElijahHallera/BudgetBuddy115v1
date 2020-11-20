@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class MainActivity extends AppCompatActivity {
 
     TextView salary, email, fullName;
+    String tempSalary;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     private Button viewProfile;
@@ -40,15 +41,19 @@ public class MainActivity extends AppCompatActivity {
 
         userID = fAuth.getCurrentUser().getUid();
 
-//        DocumentReference documentReference = fStore.collection("users").document(userID);
-//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-//                salary.setText(documentSnapshot.getString("Salary"));
-//                fullName.setText(documentSnapshot.getString("fName"));
-//                email.setText(documentSnapshot.getString("email"));
-//            }
-//        });
+
+
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                tempSalary = (documentSnapshot.getString("Salary"));
+                int temp = Integer.parseInt(tempSalary);
+                salary.setText(temp);
+                fullName.setText(documentSnapshot.getString("fName"));
+                email.setText(documentSnapshot.getString("email"));
+            }
+        });
 
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
