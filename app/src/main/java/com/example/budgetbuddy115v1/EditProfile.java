@@ -140,7 +140,7 @@ public class EditProfile extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Picasso.get().load(uri).into(profileImageView);
+                       // Picasso.get().load(uri).into(profileImageView);
                     }
                 });
             }
