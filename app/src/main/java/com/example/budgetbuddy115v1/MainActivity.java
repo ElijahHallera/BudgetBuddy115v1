@@ -18,12 +18,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView salary, email, fullName;
+    TextView salary;
     String tempSalary;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     private Button viewProfile;
     private Button viewPersonalBudget;
+    private Button createGroupBudget;
     String userID;
 
     @Override
@@ -31,29 +32,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         salary = findViewById(R.id.profileSalary);
-        fullName = findViewById(R.id.profileFullName);
-        email = findViewById(R.id.profileEmail);
         viewProfile = findViewById(R.id.viewProfile);
         viewPersonalBudget = findViewById(R.id.viewPersonalBudget);
+        createGroupBudget = findViewById(R.id.createGroupBudget);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
         userID = fAuth.getCurrentUser().getUid();
 
-
-
-        DocumentReference documentReference = fStore.collection("users").document(userID);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                tempSalary = (documentSnapshot.getString("Salary"));
-                int temp = Integer.parseInt(tempSalary);
-                salary.setText(temp);
-                fullName.setText(documentSnapshot.getString("fName"));
-                email.setText(documentSnapshot.getString("email"));
-            }
-        });
+//        DocumentReference documentReference = fStore.collection("users").document(userID);
+//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+//                tempSalary = (documentSnapshot.getString("Salary"));
+//                int temp = Integer.parseInt(tempSalary);
+//                salary.setText(temp);
+//            }
+//        });
 
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        createGroupBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, createGroupBudget.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void logout(View view){
@@ -76,6 +81,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
-
-
 }
