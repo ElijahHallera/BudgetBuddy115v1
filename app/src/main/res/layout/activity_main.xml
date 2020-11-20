@@ -7,7 +7,6 @@
     android:background="@drawable/bg_app_gradient"
     tools:context=".MainActivity">
 
-
     <Button
         android:id="@+id/viewPersonalBudget"
         android:layout_width="wrap_content"
@@ -75,7 +74,7 @@
         app:layout_constraintVertical_bias="0.191" />
 
     <Button
-        android:id="@+id/viewProfile"
+        android:id="@+id/profileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Profile"
@@ -98,4 +97,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.551" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

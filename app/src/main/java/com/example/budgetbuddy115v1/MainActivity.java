@@ -1,5 +1,16 @@
 package com.example.budgetbuddy115v1;
 
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+package com.example.budgetbuddy115v1;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     String tempSalary;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    private Button viewProfile;
     private Button viewPersonalBudget;
     private Button createGroupBudget;
+    Button mUserProfileBtn;
     String userID;
 
     @Override
@@ -32,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         salary = findViewById(R.id.profileSalary);
-        viewProfile = findViewById(R.id.viewProfile);
         viewPersonalBudget = findViewById(R.id.viewPersonalBudget);
         createGroupBudget = findViewById(R.id.createGroupBudget);
 
@@ -51,10 +61,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        viewProfile.setOnClickListener(new View.OnClickListener() {
+        mUserProfileBtn = findViewById(R.id.profileButton);
+
+        mUserProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserProfile.class));
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ViewProfile.class);
+                startActivity(intent);
             }
         });
 
@@ -82,3 +95,4 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 }
+
