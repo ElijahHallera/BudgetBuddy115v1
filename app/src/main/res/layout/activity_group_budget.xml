@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:background="@drawable/budgetgradient">
 
     <TextView
@@ -28,8 +27,5 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-=======
-    tools:context=".groupBudget">
 
->>>>>>> 27e6a97edfcee627da409416acd83f6fecd9fe57
 </androidx.constraintlayout.widget.ConstraintLayout>
