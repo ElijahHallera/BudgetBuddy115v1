@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.061" />
 
     <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart"
+        android:id="@+id/depositedMoney"
         android:layout_width="384dp"
         android:layout_height="447dp"
         android:textColor="#000000"
