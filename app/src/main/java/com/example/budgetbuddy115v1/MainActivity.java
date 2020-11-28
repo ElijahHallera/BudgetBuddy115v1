@@ -3,29 +3,18 @@ package com.example.budgetbuddy115v1;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView salary;
     String tempSalary;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -33,12 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private Button createGroupBudget;
     Button mUserProfileBtn;
     String userID;
+    EditText income;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        salary = findViewById(R.id.profileSalary);
+
+        income = findViewById(R.id.salary_input_profile);
         viewPersonalBudget = findViewById(R.id.viewPersonalBudget);
         createGroupBudget = findViewById(R.id.createGroupBudget);
 
@@ -71,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, personalBudget.class);
+                // used to pass into the next activity
+                String s = "";
+                if (income.getText().toString().isEmpty()) {
+                    // if no income was put we'll use default value of 40000
+                    s += "40000";
+                } else {
+                    s += income.getText().toString();
+                }
+                // use the key 'income' to access salary in the next activity
+                intent.putExtra("income", s);
                 startActivity(intent);
             }
         });

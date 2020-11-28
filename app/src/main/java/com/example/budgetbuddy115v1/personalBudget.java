@@ -21,13 +21,7 @@ public class personalBudget extends AppCompatActivity {
     private Button returnHome;
     private Button groupBudget;
 
-    float Salary = 120000;
-    String salaryText = String.format("%.2f", Salary);
-    float Necessities = Salary/2;
-    float freeSpending = Salary/4;
-    float Saving = Salary/4;
-    float budgetSalary[] = {Necessities, freeSpending, Saving};
-    String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +50,18 @@ public class personalBudget extends AppCompatActivity {
     }
 
     private void setupPieChart() {
+
+        Intent intent = getIntent();
+        Bundle extra = intent.getExtras();
+        // get the user inputted income or default income
+        float user_input_income = Float.parseFloat(extra.getString("income"));
+        float Salary = user_input_income;
+        String salaryText = String.format("%.2f", Salary);
+        float Necessities = Salary/2;
+        float freeSpending = Salary/4;
+        float Saving = Salary/4;
+        float budgetSalary[] = {Necessities, freeSpending, Saving};
+        String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
         //Populate a list of PieEntries:
         List<PieEntry> pieEntries = new ArrayList<>();
         for(int i = 0; i < budgetSalary.length; i++){
