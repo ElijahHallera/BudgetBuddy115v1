@@ -4,18 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -26,13 +21,7 @@ public class personalBudget extends AppCompatActivity {
     private Button returnHome;
     private Button groupBudget;
 
-    float Salary = 120000;
-    String salaryText = String.format("%.2f", Salary);
-    float Necessities = Salary/2;
-    float freeSpending = Salary/4;
-    float Saving = Salary/4;
-    float budgetSalary[] = {Necessities, freeSpending, Saving};
-    String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +50,18 @@ public class personalBudget extends AppCompatActivity {
     }
 
     private void setupPieChart() {
+
+        Intent intent = getIntent();
+        Bundle extra = intent.getExtras();
+        // get the user inputted income or default income
+        float user_input_income = Float.parseFloat(extra.getString("income"));
+        float Salary = user_input_income;
+        String salaryText = String.format("%.2f", Salary);
+        float Necessities = Salary/2;
+        float freeSpending = Salary/4;
+        float Saving = Salary/4;
+        float budgetSalary[] = {Necessities, freeSpending, Saving};
+        String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
         //Populate a list of PieEntries:
         List<PieEntry> pieEntries = new ArrayList<>();
         for(int i = 0; i < budgetSalary.length; i++){
@@ -73,7 +74,7 @@ public class personalBudget extends AppCompatActivity {
         PieData data = new PieData(dataSet);
 
         //Get the Chart:
-        PieChart chart = (PieChart) findViewById(R.id.chart);
+        PieChart chart = (PieChart) findViewById(R.id.depositedMoney);
         chart.setData(data);
         chart.setCenterText("$" + salaryText);
         chart.setCenterTextSize(25);
