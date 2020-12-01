@@ -27,11 +27,12 @@ public class createGroupBudget extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userEmail;
 
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group_budget);
-
+        Log.d("createGroupBudget", "HEREEEEE");
         budgetName = findViewById(R.id.budgName);
         tAmount = findViewById(R.id.totalAmount);
         sAmount = findViewById(R.id.startingAmount);
@@ -41,6 +42,8 @@ public class createGroupBudget extends AppCompatActivity {
         fstore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
 
+
+
         creating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,11 +52,13 @@ public class createGroupBudget extends AppCompatActivity {
                 String dummytotal = tAmount.getText().toString().trim();
                 String dummysaved = sAmount.getText().toString().trim();
                 String dummyexpenses = tExpenses.getText().toString().trim();
+
+
                 userEmail = fAuth.getCurrentUser().getEmail();
 
-                int total = Integer.parseInt(dummytotal);
-                int saved = Integer.parseInt(dummysaved);
-                int expense = Integer.parseInt(dummyexpenses);
+                float total = Float.parseFloat(float_filter(dummytotal));
+                float saved = Float.parseFloat(float_filter(dummysaved));
+                float expense = Float.parseFloat(float_filter(dummyexpenses));
 
                 Map<String, Object> docData = new HashMap<>();
                 docData.put("budgetName", budgetname);
@@ -96,6 +101,16 @@ public class createGroupBudget extends AppCompatActivity {
             }
         });
 
+    }
+
+    // sanity check method
+    public static String float_filter(String s) {
+        if ( s.isEmpty() ) {
+            s += "2000";
+            return s;
+        } else {
+            return s;
+        }
     }
 
 }
