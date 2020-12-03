@@ -2,6 +2,7 @@ package com.example.budgetbuddy115v1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,13 +22,16 @@ public class personalBudget extends AppCompatActivity {
     private Button returnHome;
     private Button groupBudget;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_budget);
         setupPieChart();
+
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//            String message = extras.getString("radioChosen");
+//        }
 
         returnHome = findViewById(R.id.backToHome);
         groupBudget = findViewById(R.id.viewGroupBudget);
@@ -53,6 +57,9 @@ public class personalBudget extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
+        String chosen = extra.getString("RADIO_CHOICE");
+        Log.d("HELLLLOOOOO", chosen);
+
         // get the user inputted income or default income
         float user_input_income = Float.parseFloat(extra.getString("income"));
         float Salary = user_input_income;
@@ -62,8 +69,11 @@ public class personalBudget extends AppCompatActivity {
 
         float freeSpending = freeSpending1.floatValue();
         float Saving = Salary/5;
+
+        
         float budgetSalary[] = {Necessities, freeSpending, Saving};
         String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
+
         //Populate a list of PieEntries:
         List<PieEntry> pieEntries = new ArrayList<>();
         for(int i = 0; i < budgetSalary.length; i++){
