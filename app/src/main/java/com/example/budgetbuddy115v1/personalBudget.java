@@ -1,11 +1,11 @@
 package com.example.budgetbuddy115v1;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -58,8 +58,10 @@ public class personalBudget extends AppCompatActivity {
         float Salary = user_input_income;
         String salaryText = String.format("%.2f", Salary);
         float Necessities = Salary/2;
-        float freeSpending = Salary/4;
-        float Saving = Salary/4;
+        Double freeSpending1 = Salary * .3;
+
+        float freeSpending = freeSpending1.floatValue();
+        float Saving = Salary/5;
         float budgetSalary[] = {Necessities, freeSpending, Saving};
         String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
         //Populate a list of PieEntries:
