@@ -2,6 +2,7 @@ package com.example.budgetbuddy115v1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -74,9 +75,9 @@ public class groupBudget extends AppCompatActivity {
 
         Bundle extra = getIntent().getExtras();
         if(extra != null){
-            budget = extra.getInt("total");
-            savings = extra.getInt("savings");
-            expenses = extra.getInt("expenses");
+            budget = extra.getFloat("total");
+            savings = extra.getFloat("savings");
+            expenses = extra.getFloat("expenses");
 
         }
         leftOver = budget - (expenses + savings);

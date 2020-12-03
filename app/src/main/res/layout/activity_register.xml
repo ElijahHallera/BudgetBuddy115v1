@@ -44,13 +44,15 @@
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName"
-        android:padding="10dp"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_sub"
-        app:layout_constraintVertical_bias="0.16000003" />
+        app:layout_constraintVertical_bias="0.16000003"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColorHint="@color/purple"/>
 
     <EditText
         android:id="@+id/Email"
@@ -68,7 +70,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullName"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintVertical_bias="0.050000012"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColorHint="@color/purple"/>
 
     <EditText
         android:id="@+id/password"
@@ -78,11 +83,14 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:ems="10"
-        android:hint="password"
+        android:background="@drawable/edittext_bg"
         android:drawableRight="@drawable/ic_eye"
-        android:textSize="15sp"
+        android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
+        android:padding="16dp"
+        android:textColorHint="@color/purple"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
