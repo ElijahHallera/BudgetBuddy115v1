@@ -28,11 +28,6 @@ public class personalBudget extends AppCompatActivity {
         setContentView(R.layout.activity_personal_budget);
         setupPieChart();
 
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            String message = extras.getString("radioChosen");
-//        }
-
         returnHome = findViewById(R.id.backToHome);
         groupBudget = findViewById(R.id.viewGroupBudget);
 
@@ -58,19 +53,38 @@ public class personalBudget extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
         String chosen = extra.getString("RADIO_CHOICE");
+        int passSavings = intent.getIntExtra("CUSTOM_SAVINGS", 0);
+        int passNecessities = intent.getIntExtra("CUSTOM_NECESSITIES", 0);
+        int passFreeSpending = intent.getIntExtra("CUSTOM_FREESPENDING", 0);
         Log.d("HELLLLOOOOO", chosen);
+        float Necessities = 0;
+        float freeSpending = 0;
+        float Saving = 0;
+        String salaryText = "";
+        float Salary = 0;
 
-        // get the user inputted income or default income
-        float user_input_income = Float.parseFloat(extra.getString("income"));
-        float Salary = user_input_income;
-        String salaryText = String.format("%.2f", Salary);
-        float Necessities = Salary/2;
-        Double freeSpending1 = Salary * .3;
+        if(chosen.equals("preset")){
+            //Handles User input for income
+            Salary += Float.parseFloat(extra.getString("income"));
+            salaryText += String.format("%.2f", Salary);
 
-        float freeSpending = freeSpending1.floatValue();
-        float Saving = Salary/5;
+            //Handles the budget for the graph at a split ratio
+            Necessities += Salary/2; //50%
+            Double freeSpending1 = Salary * .3;
+            freeSpending += freeSpending1.floatValue(); //30%
+            Saving += Salary/5; //20%
 
-        
+        } else if(chosen.equals("custom")){
+
+            Salary += Float.parseFloat(extra.getString("income"));
+            salaryText += String.format("%.2f", Salary);
+
+            Necessities = (Salary * passNecessities)/100; //50%
+            float freeSpending1 = (Salary * passFreeSpending)/100;
+            freeSpending = freeSpending1; //30%
+            Saving = (Salary * passSavings)/100; //20%
+        }
+
         float budgetSalary[] = {Necessities, freeSpending, Saving};
         String budgetCategory[] = {"Necessities", "Free-Spending", "Saving"};
 

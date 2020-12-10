@@ -56,17 +56,31 @@ public class createPersonalAnnualBudget extends AppCompatActivity {
         generateBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(createPersonalAnnualBudget.this, personalBudget.class);
-                String s = "";
-                if (income.getText().toString().isEmpty()) {
-                    // if no income was put we'll use default value of 40000
-                    s += "40000";
-                } else {
-                    s += income.getText().toString();
+                if(selectedType.equals("preset")){
+                    Intent intent = new Intent(createPersonalAnnualBudget.this, personalBudget.class);
+                    String s = "";
+                    if (income.getText().toString().isEmpty()) {
+                        // if no income was put we'll use default value of 40000
+                        s += "40000";
+                    } else {
+                        s += income.getText().toString();
+                    }
+                    intent.putExtra("RADIO_CHOICE", selectedType);
+                    intent.putExtra("income", s);
+                    startActivity(intent);
+                } else if (selectedType.equals("custom")){
+                    Intent intent = new Intent(createPersonalAnnualBudget.this, CustomPersonalBudget.class);
+                    String s = "";
+                    if (income.getText().toString().isEmpty()) {
+                        // if no income was put we'll use default value of 40000
+                        s += "40000";
+                    } else {
+                        s += income.getText().toString();
+                    }
+                    intent.putExtra("RADIO_CHOICE", selectedType);
+                    intent.putExtra("income", s);
+                    startActivity(intent);
                 }
-                intent.putExtra("RADIO_CHOICE", selectedType);
-                intent.putExtra("income", s);
-                startActivity(intent);
             }
         });
 
