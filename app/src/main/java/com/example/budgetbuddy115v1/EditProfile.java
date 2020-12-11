@@ -24,7 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.jetbrains.annotations.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -120,17 +120,17 @@ public class EditProfile extends AppCompatActivity {
         profileFullName.setText(fullName);
 
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000){
-            if(resultCode == Activity.RESULT_OK){
-                Uri imageUri = data.getData();
-
-                uploadImageToFirebase(imageUri);
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == 1000){
+//            if(resultCode == Activity.RESULT_OK){
+//                Uri imageUri = data.getData();
+//
+//                uploadImageToFirebase(imageUri);
+//            }
+//        }
+//    }
 
     private void uploadImageToFirebase(Uri imageUri){
         final StorageReference fileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid() + "/profile.jpg");
@@ -140,7 +140,7 @@ public class EditProfile extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Picasso.get().load(uri).into(profileImageView);
+                       // Picasso.get().load(uri).into(profileImageView);
                     }
                 });
             }

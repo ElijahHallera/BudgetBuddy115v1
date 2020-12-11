@@ -15,12 +15,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
-    String tempSalary;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     private Button viewPersonalBudget;
     private Button createGroupBudget;
-    Button mUserProfileBtn;
+    private Button createPersonalAnnualBudget;
+    private Button createPersonalMonthlyBudget;
+    private Button mUserProfileBtn;
+
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
     String userID;
     EditText income;
 
@@ -32,21 +34,13 @@ public class MainActivity extends AppCompatActivity {
         income = findViewById(R.id.salary_input_profile);
         viewPersonalBudget = findViewById(R.id.viewPersonalBudget);
         createGroupBudget = findViewById(R.id.createGroupBudget);
+        createPersonalAnnualBudget = findViewById(R.id.createPersonalAnnualBudget);
+        createPersonalMonthlyBudget = findViewById(R.id.createPersonalMonthlyBudget);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
         userID = fAuth.getCurrentUser().getUid();
-
-//        DocumentReference documentReference = fStore.collection("users").document(userID);
-//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-//                tempSalary = (documentSnapshot.getString("Salary"));
-//                int temp = Integer.parseInt(tempSalary);
-//                salary.setText(temp);
-//            }
-//        });
 
         mUserProfileBtn = findViewById(R.id.profileButton);
 
@@ -80,6 +74,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, createGroupBudget.class);
+                startActivity(intent);
+            }
+        });
+
+        createPersonalMonthlyBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, createPersonalMonthlyBudget.class);
+                startActivity(intent);
+            }
+        });
+
+        createPersonalAnnualBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, createPersonalAnnualBudget.class);
                 startActivity(intent);
             }
         });
