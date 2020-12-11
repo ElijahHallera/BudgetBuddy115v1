@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -13,14 +15,29 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class personalBudget extends AppCompatActivity {
 
     private Button returnHome;
     private Button groupBudget;
+    private Button saveBudget;
+    public static final String TAG = "TAG";
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +45,12 @@ public class personalBudget extends AppCompatActivity {
         setContentView(R.layout.activity_personal_budget);
         setupPieChart();
 
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+
         returnHome = findViewById(R.id.backToHome);
         groupBudget = findViewById(R.id.viewGroupBudget);
+        saveBudget = (Button) findViewById(R.id.saveBudget);
 
         groupBudget.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,10 +67,74 @@ public class personalBudget extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        saveBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                Bundle extra = intent.getExtras();
+                String chosen = extra.getString("RADIO_CHOICE");
+                String passedIncome = extra.getString("income");
+
+                //IN FIRESTORE WERE GOING TO SAVE THE SALARY AND PRESET OR CUSTOM RATIO.
+
+                //IF USER CHOSE PRESET WE WILL SAVE BUDGET UNDER PRESET WITH PRESET RATIOS
+                if(chosen.equals("preset")) {
+                    int presetSavings = 20;
+                    int presetNecessities = 50;
+                    int presetFreeSpending = 30;
+
+                    Map<String, Object> personalBudgets = new HashMap<>();
+                    personalBudgets.put("userID", fAuth.getCurrentUser().getUid());
+                    personalBudgets.put("userSalary", passedIncome);
+                    personalBudgets.put("userSavingsRatio", presetSavings);
+                    personalBudgets.put("userNecessitiesRatio", presetNecessities);
+                    personalBudgets.put("userFreeSpendingRatio", presetFreeSpending);
+                    fStore.collection("personalBudgets").add(personalBudgets).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(personalBudget.this, "PERSONAL BUDGET ADDED", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String error = e.getMessage();
+
+                            Toast.makeText(personalBudget.this, "ERROR: " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    //IF USER CHOSE CUSTOM WE WILL SAVE BUDGET UNDER CUSTOM WITH INPUTTED RATIOS
+                } else if(chosen.equals("custom")){
+                    int passSavings = intent.getIntExtra("CUSTOM_SAVINGS", 0);
+                    int passNecessities = intent.getIntExtra("CUSTOM_NECESSITIES", 0);
+                    int passFreeSpending = intent.getIntExtra("CUSTOM_FREESPENDING", 0);
+                    Map<String, Object> personalBudgets = new HashMap<>();
+                    personalBudgets.put("userID", fAuth.getCurrentUser().getUid());
+                    personalBudgets.put("userSalary", passedIncome);
+                    personalBudgets.put("userSavingsRatio", passSavings);
+                    personalBudgets.put("userNecessitiesRatio", passNecessities);
+                    personalBudgets.put("userFreeSpendingRatio", passFreeSpending);
+                    fStore.collection("personalBudgets").add(personalBudgets).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(personalBudget.this, "PERSONAL BUDGET ADDED", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String error = e.getMessage();
+
+                            Toast.makeText(personalBudget.this, "ERROR: " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 
+    //CREATES THE PIE CHART TO DISPLAY BUDGET AND RATIOS
     private void setupPieChart() {
-
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
         String chosen = extra.getString("RADIO_CHOICE");
@@ -79,10 +164,10 @@ public class personalBudget extends AppCompatActivity {
             Salary += Float.parseFloat(extra.getString("income"));
             salaryText += String.format("%.2f", Salary);
 
-            Necessities = (Salary * passNecessities)/100; //50%
+            Necessities = (Salary * passNecessities)/100;
             float freeSpending1 = (Salary * passFreeSpending)/100;
-            freeSpending = freeSpending1; //30%
-            Saving = (Salary * passSavings)/100; //20%
+            freeSpending = freeSpending1;
+            Saving = (Salary * passSavings)/100;
         }
 
         float budgetSalary[] = {Necessities, freeSpending, Saving};
