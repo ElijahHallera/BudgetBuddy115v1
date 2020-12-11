@@ -15,6 +15,7 @@ public class CustomPersonalBudget extends AppCompatActivity {
     EditText savingsInput, necessitiesInput, freeSpendingInput;
     private Button returnHome;
     private Button generateBudget;
+    String chosen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class CustomPersonalBudget extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
-        String chosen = extra.getString("income");
+        chosen = extra.getString("income");
 
         returnHome = findViewById(R.id.returnHome);
         generateBudget = findViewById(R.id.generateBudget);
@@ -54,8 +55,7 @@ public class CustomPersonalBudget extends AppCompatActivity {
                     int freeSpendingInt = Integer.parseInt(tempFreeSpending);
 
                     Intent intent = new Intent(CustomPersonalBudget.this, personalBudget.class);
-                    String s = "";
-                    s += "40000";
+                    String s = chosen;
 
                     intent.putExtra("CUSTOM_SAVINGS", savingsInt);
                     intent.putExtra("CUSTOM_NECESSITIES", necessitiesInt);
