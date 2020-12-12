@@ -28,8 +28,9 @@ public class groupBudget extends AppCompatActivity {
     private TextView text;
     private Button goHome;
     private Button update;
+    private Button addBuddy;
     private TextView newExpenses;
-    private TextView newDeposits;
+    private TextView newEmails;
     //in order to add a way to go to groubbudget page
     //private Button goToBudgets;
 
@@ -45,6 +46,7 @@ public class groupBudget extends AppCompatActivity {
     int totalAmount;
     int totalSaved;
     FirebaseFirestore fstore;
+    int counter = 2;
 
 
     @Override
@@ -64,6 +66,8 @@ public class groupBudget extends AppCompatActivity {
         goHome = findViewById(R.id.Home);
         text = findViewById(R.id.budgetName);
         text.setText(mainName);
+        addBuddy = findViewById(R.id.addBudy);
+
 
 
         setupPieChart();
@@ -93,7 +97,7 @@ public class groupBudget extends AppCompatActivity {
 
                 }
                 newExpenses = findViewById(R.id.spentMoney);
-                newDeposits = findViewById(R.id.deposit);
+                //newDeposits = findViewById(R.id.deposit);
                 float trigger = expenses;
                 float trigger2 = Float.valueOf(newExpenses.getText().toString());
                 float adding = trigger + trigger2;
@@ -101,7 +105,7 @@ public class groupBudget extends AppCompatActivity {
                 Map<String, Object>updates = new HashMap<>();
                 updates.put("currentExpenses", adding);
 
-                //DocumentReference documentReference = fstore.collection("groupBudget").document(mainName);
+
                 documentReference.update(updates);
 
                 reSetUpPieChart(adding);
@@ -110,6 +114,22 @@ public class groupBudget extends AppCompatActivity {
             }
         });
 
+
+        addBuddy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentReference documentReference = fstore.collection("groupBudget").document(mainName);
+                newEmails = findViewById(R.id.emails);
+                String email = newEmails.getText().toString().trim();
+                String counting = String.valueOf(counter);
+                String insert = "participants." + counting;
+                Map<String, Object>addingEmail = new HashMap<>();
+                addingEmail.put(insert, email);
+                documentReference.update(addingEmail);
+                counter = counter + 1;
+
+            }
+        });
     }
 
     private void setupPieChart(){
