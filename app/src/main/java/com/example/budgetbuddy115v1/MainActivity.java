@@ -2,15 +2,13 @@ package com.example.budgetbuddy115v1;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.firebase.auth.FirebaseAuth;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,17 +53,18 @@ public class MainActivity extends AppCompatActivity {
         viewPersonalBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, personalBudget.class);
-                // used to pass into the next activity
-                String s = "";
-                if (income.getText().toString().isEmpty()) {
-                    // if no income was put we'll use default value of 40000
-                    s += "40000";
-                } else {
-                    s += income.getText().toString();
-                }
-                // use the key 'income' to access salary in the next activity
-                intent.putExtra("income", s);
+                Intent intent = new Intent(MainActivity.this, AllPersonalBudgets.class);
+
+//                // used to pass into the next activity
+//                String s = "";
+//                if (income.getText().toString().isEmpty()) {
+//                    // if no income was put we'll use default value of 40000
+//                    s += "40000";
+//                } else {
+//                    s += income.getText().toString();
+//                }
+//                // use the key 'income' to access salary in the next activity
+//                intent.putExtra("income", s);
                 startActivity(intent);
             }
         });

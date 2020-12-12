@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomPersonalBudget"></activity>
+        <activity android:name=".AllPersonalBudgets"></activity>
+        <activity android:name=".CustomPersonalBudget" />
         <activity android:name=".createPersonalMonthlyBudget" />
         <activity android:name=".createPersonalAnnualBudget" />
         <activity android:name=".Login" />
