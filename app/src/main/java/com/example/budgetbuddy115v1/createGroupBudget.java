@@ -68,10 +68,6 @@ public class createGroupBudget extends AppCompatActivity {
 
                 Map<String, Object> participants = new HashMap<>();
                 participants.put("1", userEmail);
-                participants.put("2", "christian");
-                participants.put("3", "Natalia");
-                participants.put("4", "Elijah");
-                participants.put("5", "Victor");
 
                 docData.put("participants", participants);
 

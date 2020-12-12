@@ -12,9 +12,11 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piechart"
         android:layout_width="372dp"
-        android:layout_height="374dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="121dp"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/spentMoney"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +40,9 @@
         android:id="@+id/Home"
         android:layout_width="133dp"
         android:layout_height="46dp"
-        android:layout_marginStart="260dp"
-        android:layout_marginLeft="260dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginLeft="252dp"
+        android:layout_marginBottom="16dp"
         android:text="Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -53,37 +55,22 @@
         android:layout_marginLeft="26dp"
         android:layout_marginEnd="13dp"
         android:layout_marginRight="13dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginBottom="179dp"
         android:ems="10"
         android:hint="Amount spent"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/deposit"
-        app:layout_constraintEnd_toStartOf="@+id/emails"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/deposit"
-        android:layout_width="0dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginRight="54dp"
-        android:layout_marginBottom="111dp"
-        android:ems="10"
-        android:hint="Amount deposited"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addBudy"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/emails"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/piechart" />
 
     <Button
         android:id="@+id/update"
         android:layout_width="133dp"
         android:layout_height="46dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginBottom="60dp"
         android:text="Update chart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -93,8 +80,8 @@
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginTop="511dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
         android:layout_marginBottom="27dp"
         android:ems="10"
         android:hint="Buddy Email"
@@ -114,7 +101,6 @@
         android:text="Add Buddy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/deposit"
         app:layout_constraintTop_toBottomOf="@+id/emails" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
